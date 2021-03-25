@@ -1,11 +1,12 @@
 from django.core.validators import RegexValidator
 from rest_framework.validators import UniqueValidator, qs_exists
 
-from short_url.exceptions import UniqueShortCodeException, InvalidShortCodeException
+from short_url.exceptions import (InvalidShortCodeException,
+                                  UniqueShortCodeException)
 
 
 class ShortCodeValidator(RegexValidator):
-    regex = '^[A-Za-z0-9_]{6}$'
+    regex = "^[A-Za-z0-9_]{6}$"
 
     def __call__(self, value):
         """
@@ -23,7 +24,7 @@ class UniqueShortCodeValidator(UniqueValidator):
         This method is default. The only difference: it raises UniqueShortUrlException instead of ValidationError
         """
         field_name = serializer_field.source_attrs[-1]
-        instance = getattr(serializer_field.parent, 'instance', None)
+        instance = getattr(serializer_field.parent, "instance", None)
 
         queryset = self.queryset
         queryset = self.filter_queryset(value, queryset, field_name)

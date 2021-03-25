@@ -6,7 +6,7 @@ clean:
 
 
 venv:
-	python3 -m venv venv
+	python -m venv venv
 
 install_requirements:
 	$(BIN)pip install -r requirements.txt
@@ -14,6 +14,9 @@ install_requirements:
 install: clean venv install_requirements
 	$(BIN)python manage.py migrate
 	$(BIN)python manage.py collectstatic
+
+test:
+	$(BIN)pytest tests
 
 
 

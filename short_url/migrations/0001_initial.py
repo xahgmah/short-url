@@ -8,23 +8,37 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Url',
+            name="Url",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True, null=True)),
-                ('modified', models.DateTimeField(auto_now=True, null=True)),
-                ('url', models.URLField()),
-                ('short_code', models.CharField(db_index=True, max_length=6, validators=[django.core.validators.MinLengthValidator(6)])),
-                ('last_redirect', models.DateTimeField(auto_now_add=True, null=True)),
-                ('redirect_count', models.IntegerField(default=0)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True, null=True)),
+                ("modified", models.DateTimeField(auto_now=True, null=True)),
+                ("url", models.URLField()),
+                (
+                    "short_code",
+                    models.CharField(
+                        db_index=True,
+                        max_length=6,
+                        validators=[django.core.validators.MinLengthValidator(6)],
+                    ),
+                ),
+                ("last_redirect", models.DateTimeField(auto_now_add=True, null=True)),
+                ("redirect_count", models.IntegerField(default=0)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

@@ -11,7 +11,7 @@ class StatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Url
-        fields = ['created', 'last_redirect', 'redirect_count']
+        fields = ["created", "last_redirect", "redirect_count"]
 
 
 class CreateUrlSerializer(serializers.ModelSerializer):
@@ -23,11 +23,15 @@ class CreateUrlSerializer(serializers.ModelSerializer):
 
     Rest of validation errors return default 400 code
     """
-    short_code = serializers.CharField(validators=[
-        ShortCodeValidator(),
-        UniqueShortCodeValidator(queryset=Url.objects.all()),
-    ], required=False)
+
+    short_code = serializers.CharField(
+        validators=[
+            ShortCodeValidator(),
+            UniqueShortCodeValidator(queryset=Url.objects.all()),
+        ],
+        required=False,
+    )
 
     class Meta:
         model = Url
-        fields = ['url', 'short_code']
+        fields = ["url", "short_code"]

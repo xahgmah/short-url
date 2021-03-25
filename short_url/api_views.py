@@ -1,10 +1,10 @@
-from rest_framework import mixins, viewsets, status
+from rest_framework import mixins, status, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from short_url.models import Url
-from short_url.serializers import StatsSerializer, CreateUrlSerializer
+from short_url.serializers import CreateUrlSerializer, StatsSerializer
 
 
 class Stats(APIView):
@@ -26,6 +26,7 @@ class UrlViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     Create a new short url
     """
+
     serializer_class = CreateUrlSerializer
     queryset = Url.objects.all()
 
@@ -35,10 +36,12 @@ class UrlViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         if short code is empty generate a new one before save
         """
         data = request.data.copy()
-        if not data.get('short_code'):
-            data['short_code'] = Url.get_new_short_code()
+        if not data.get("short_code"):
+            data["short_code"] = Url.get_new_short_code()
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
